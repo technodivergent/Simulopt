@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Trade } from '../models/trade';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class TradesService {
   constructor(private _http: HttpClient) { }
 
   getTrades(): Observable<Trade[]> {
-    return this._http.get<Trade[]>(this.tradesURL).pipe(map( data => {
+    return this._http.get<Trade[]>(this.tradesURL).pipe(map(data => {
       const trades: Trade[] = [];
       for (const i of data) {
         const trade: Trade = new Trade();
@@ -38,5 +38,34 @@ export class TradesService {
       console.log(trades);
       return trades;
     }));
+  }
+
+  getTradeByID(id: number): Observable<Trade> {
+    const url = `${this.tradesURL}/${id}`;
+    return this._http.get<Trade>(url).pipe(
+      tap(_ => console.log(`fetched hero id=${id}`)),
+      map(data => {
+        const trade = new Trade();
+        trade.id = data['id'];
+        trade.dateEntry = data['dateEntry'];
+        trade.symbol = data['symbol'];
+        trade.isPractice = data['isPractice'];
+        trade.isCall = data['isCall'];
+        trade.strike = data['strike'];
+        trade.dateExpires = data['dateExpires'];
+        trade.bidAtOpen = data['bidAtOpen'];
+        trade.askAtOpen = data['askAtOpen'];
+        trade.bidAtClose = data['bidAtClose'];
+        trade.askAtClose = data['askAtClose'];
+        trade.profit = (data['bidAtClose'] - data['askAtOpen']) * 100;
+        trade.dateExit = data['dateExit'];
+        trade.is7HR = data['is7HR'];
+        trade.notes = data['notes'];
+        trade.entryCriteria = data['entryCriteria'];
+        trade.exitCriteria = data['exitCriteria'];
+        console.log(trade);
+        return trade;
+      })
+    );
   }
 }

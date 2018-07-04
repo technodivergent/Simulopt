@@ -33,7 +33,7 @@
               <span [ngStyle]="{'color': trade.profit <= 0 ? '#ff0000':'#000' }"><strong>{{trade.profit | currency }}</strong></span>
             </td>
             <td>{{trade.is7HR ? 'Yes' : 'No'}}</td>
-            <td><i class="fa fa-external-link-alt" ></i></td>
+            <td><a [routerLink]="['/trade', trade.id]" routerLinkActive="active"><i class="fa fa-external-link-alt" ></i></a></td>
           </tr>
         </tbody>
       </table>

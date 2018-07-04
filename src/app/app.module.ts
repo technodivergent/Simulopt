@@ -8,9 +8,11 @@ import { InMemoryDataService } from './services/in-memory-data.service';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { TradeComponent } from './trade/trade.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'trade/:id', component: TradeComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
   // { path: '**', component: PageNotFoundComponent }
 ];
@@ -18,7 +20,8 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    TradeComponent
   ],
   imports: [
     RouterModule.forRoot(
