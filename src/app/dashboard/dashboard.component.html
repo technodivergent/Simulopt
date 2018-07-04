@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Entry Date</th>
+            <th>Symbol</th>
+            <th>Practice/Real</th>
+            <th>Call/Put</th>
+            <th>Strike</th>
+            <th>Expires</th>
+            <th>Ask at Open</th>
+            <th>Bid at Close</th>
+            <th>Exit Date</th>
+            <th>Profit</th>
+            <th>7HR?</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let trade of trades">
+            <td>{{trade.dateEntry}}</td>
+            <td>{{trade.symbol}}</td>
+            <td>{{trade.isPractice ? 'Practice' : 'Real'}}</td>
+            <td>{{trade.isCall ? 'Call' : 'Put'}}</td>
+            <td>{{trade.strike}}</td>
+            <td>{{trade.dateExpires}}</td>
+            <td>{{trade.askAtOpen}}</td>
+            <td>{{trade.bidAtClose}}</td>
+            <td>{{trade.dateExit}}</td>
+            <td>
+              <span [ngStyle]="{'color': trade.profit <= 0 ? '#ff0000':'#000' }"><strong>{{trade.profit | currency }}</strong></span>
+            </td>
+            <td>{{trade.is7HR ? 'Yes' : 'No'}}</td>
+            <td><i class="fa fa-external-link-alt" ></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
