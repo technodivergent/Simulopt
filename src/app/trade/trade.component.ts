@@ -11,7 +11,7 @@ import { Trade } from '../models/trade';
 })
 export class TradeComponent implements OnInit {
   subscription: Subscription;
-  trades: Trade[];
+  trade: Trade;
   constructor(
     private _tradesService: TradesService,
     private _route: ActivatedRoute
@@ -19,7 +19,9 @@ export class TradeComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this._route.params.subscribe( params => {
-      this._tradesService.getTradeByID(params.id).subscribe();
+      this._tradesService.getTradeByID(params.id).subscribe( trade => {
+        this.trade = trade;
+      });
     });
   }
 

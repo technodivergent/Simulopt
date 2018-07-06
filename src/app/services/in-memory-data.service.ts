@@ -96,6 +96,35 @@ export class InMemoryDataService implements InMemoryDbService {
                     evidenceDaily: [ ],
                     evidenceWeekly: [ ]
                 }
+            },
+            {
+                id: 4,
+                dateEntry: '2018-01-01',
+                dateExit: '',
+                dateExpires: '2018-09-01',
+                symbol: 'MSFT',
+                isPractice: true,
+                isCall: true,
+                strike: 626,
+                bidAtOpen: 20.40,
+                askAtOpen: 21.20,
+                is7HR: false,
+                notes: 'n/a',
+                entryCriteria:
+                {
+                    marketSli: '$INDU/COMPQ/SPX 1 ?/4',
+                    stockSli: 'EXPE ?/4',
+                    dailyHardEvidence: [ 'CC', 'SRSI', 'MACD', 'DM Fired', 'HR' ],
+                    dailySoftEvidence: [ 'srsi>80', 'Doji', 'UP AW' ],
+                    weeklyHardEvidence: [ ],
+                    weeklySoftEvidence: [ 'Doji', '21MA', 'UP AW' ],
+                    weeklyCall: ''
+                },
+                exitCriteria: {
+                    evidence233: [ ],
+                    evidenceDaily: [ ],
+                    evidenceWeekly: [ ]
+                }
             }
         ];
         return { trades };

@@ -2,3 +2,8 @@
 body {
     background-color: #00bfff;
 }
+
+h1, h2, h3, h4 {
+    margin: 0px;
+}
+

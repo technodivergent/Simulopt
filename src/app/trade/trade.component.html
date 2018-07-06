@@ -1,3 +1,56 @@
-<p>
-  trade works!
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <span *ngIf="trade">{{trade.isPractice ? 'Practice' : 'Real' }}</span> Trade Details</h3>
+      </div>
+      <div class="panel-body">
+        <div *ngIf="trade; else noTrade">
+          <div class="row">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+              <h2>
+                <button class="btn" [ngClass]="{
+                  'btn-success':trade.isCall,
+                  'btn-danger':!trade.isCall
+                }">
+                  {{trade.symbol}}
+                  <i *ngIf="trade.isCall" class="fas fa-arrow-up"></i>
+                  <i *ngIf="!trade.isCall" class="fas fa-arrow-down"></i>
+                </button>
+              </h2>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              Date Entered:
+              <br/> {{trade.dateEntry | date:'MMM dd, yyyy'}}
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              Date Exited:
+              <br/>
+              <span *ngIf="trade.dateExit; else openTrade">
+                {{trade.dateExit | date:'MMM dd, yyyy'}}
+              </span>
+              <ng-template #openTrade>
+                <span class="active-trade">
+                  ACTIVE TRADE
+                </span>
+              </ng-template>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              Option Expires:
+              <br/> {{trade.dateExpires | date:'MMM-dd'}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              {{trade.isCall ? 'Call' : 'Put'}}
+            </div>
+          </div>
+        </div>
+        <ng-template #noTrade>
+          Trade Not Found
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

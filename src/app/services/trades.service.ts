@@ -63,7 +63,6 @@ export class TradesService {
         trade.notes = data['notes'];
         trade.entryCriteria = data['entryCriteria'];
         trade.exitCriteria = data['exitCriteria'];
-        console.log(trade);
         return trade;
       })
     );
