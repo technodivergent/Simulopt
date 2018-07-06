@@ -42,8 +42,41 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-              {{trade.isCall ? 'Call' : 'Put'}}
+            <div class="col-md-12">
+              <table class="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Bid at Open</th>
+                    <th>Ask at Open</th>
+                    <th>Bid at Close</th>
+                    <th>Ask at Close</th>
+                    <th>Profit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{trade.bidAtOpen}}</td>
+                    <td>{{trade.askAtOpen}}</td>
+                    <td>{{trade.bidAtClose}}</td>
+                    <td>{{trade.askAtClose}}</td>
+                    <td>
+                      <span [ngStyle]="{'color': trade.profit <= 0 ? '#ff0000':'#000' }">
+                        <strong>{{trade.profit | currency }}</strong>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="page-header">
+                <h2>Notes</h2>
+              </div>
+              <div class="well">
+                {{trade.notes}}
+              </div>
             </div>
           </div>
         </div>
