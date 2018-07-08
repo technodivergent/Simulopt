@@ -7,6 +7,7 @@
       </div>
       <div class="panel-body">
         <div *ngIf="trade; else noTrade">
+          <!-- #region Summary Stats -->
           <div class="row">
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
               <h2>
@@ -22,13 +23,13 @@
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
               Date Entered:
-              <br/> {{trade.dateEntry | date:'MMM dd, yyyy'}}
+              <br/> {{trade.dateEntry | date:'MMM dd, yyyy - HH:mm a'}}
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
               Date Exited:
               <br/>
               <span *ngIf="trade.dateExit; else openTrade">
-                {{trade.dateExit | date:'MMM dd, yyyy'}}
+                {{trade.dateExit | date:'MMM dd, yyyy - HH:mm a'}}
               </span>
               <ng-template #openTrade>
                 <span class="active-trade">
@@ -50,6 +51,8 @@
                     <th>Ask at Open</th>
                     <th>Bid at Close</th>
                     <th>Ask at Close</th>
+                    <th>Bought</th>
+                    <th>Sold</th>
                     <th>Profit</th>
                   </tr>
                 </thead>
@@ -59,6 +62,8 @@
                     <td>{{trade.askAtOpen}}</td>
                     <td>{{trade.bidAtClose}}</td>
                     <td>{{trade.askAtClose}}</td>
+                    <td>{{trade.askAtOpen*100 | currency}}</td>
+                    <td>{{trade.bidAtClose*100 | currency}}</td>
                     <td>
                       <span [ngStyle]="{'color': trade.profit <= 0 ? '#ff0000':'#000' }">
                         <strong>{{trade.profit | currency }}</strong>
@@ -69,6 +74,171 @@
               </table>
             </div>
           </div>
+          <!-- #endregion Summary Stats -->
+          <!-- #region Entry/Exit Criteria -->
+          <div class="row">
+            <!-- #region Entry Criteria -->
+            <div class="col-md-6">
+              <div class="page-header">
+                <h2>Entry Criteria</h2>
+              </div>
+              <div class="well">
+                <div class="row">
+                  <div class="well-header">
+                    <h2>Summary</h2>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-3">
+                      Market: {{trade.entryCriteria.marketSli}}
+                      <br/>
+                      <br/>
+                    </div>
+                    <div class="col-xs-3">
+                      Stock: {{trade.entryCriteria.stockSli}}
+                      <br/>
+                      <br/>
+                    </div>
+                    <div class="col-xs-3">
+                      <div>Hard Evidence: {{trade.entryCriteria.dailyHardEvidence.length+trade.entryCriteria.weeklyHardEvidence.length}}</div>
+                      <div>Soft Evidence: {{trade.entryCriteria.dailySoftEvidence.length+trade.entryCriteria.weeklySoftEvidence.length}}</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- #region Daily -->
+                <div class="row">
+                  <div class="well-header">
+                    <h2>Daily Evidence</h2>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <table class="table table-condensed">
+                        <thead>
+                          <tr>
+                            <th>Hard ({{trade.entryCriteria.dailyHardEvidence.length}})</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let evidence of trade.entryCriteria.dailyHardEvidence">
+                            <td>{{evidence}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-xs-6">
+                      <table class="table table-condensed">
+                        <thead>
+                          <tr>
+                            <th>Soft ({{trade.entryCriteria.dailySoftEvidence.length}})</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let evidence of trade.entryCriteria.dailySoftEvidence">
+                            <td>{{evidence}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!-- #endregion Daily -->
+                <!-- #region Weekly -->
+                <div class="row">
+                  <div class="well-header">
+                    <h2>Weekly Evidence</h2>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <table class="table table-condensed">
+                        <thead>
+                          <tr>
+                            <th>Hard ({{trade.entryCriteria.weeklyHardEvidence.length}})</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let evidence of trade.entryCriteria.weeklyHardEvidence">
+                            <td>{{evidence}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-xs-6">
+                      <table class="table table-condensed">
+                        <thead>
+                          <tr>
+                            <th>Soft ({{trade.entryCriteria.weeklySoftEvidence.length}})</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let evidence of trade.entryCriteria.weeklySoftEvidence">
+                            <td>{{evidence}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!-- #endregion Weekly -->
+              </div>
+            </div>
+            <!-- #endregion Entry Criteria -->
+            <!-- #region Exit Criteria -->
+            <div class="col-sm-6">
+              <div class="page-header">
+                <h2>Exit Criteria</h2>
+              </div>
+              <div class="well">
+                <div class="row">
+                  <div class="row">
+                    <div class="col-xs-3">
+                      <table class="table table-condensed">
+                        <thead>
+                          <tr>
+                            <th>233</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let evidence of trade.exitCriteria.evidence233">
+                            <td>{{evidence}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-xs-3">
+                      <table class="table table-condensed">
+                        <thead>
+                          <tr>
+                            <th>Daily</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let evidence of trade.exitCriteria.evidenceDaily">
+                            <td>{{evidence}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-xs-3">
+                      <table class="table table-condensed">
+                        <thead>
+                          <tr>
+                            <th>Weekly</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let evidence of trade.exitCriteria.evidenceWeekly">
+                            <td>{{evidence}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- #endregion Exit Criteria-->
+          </div>
+          <!-- #endregion Entry/Exit Criteria -->
+          <!-- #region Notes -->
           <div class="row">
             <div class="col-md-12">
               <div class="page-header">
@@ -79,6 +249,7 @@
               </div>
             </div>
           </div>
+          <!-- #endregion Notes -->
         </div>
         <ng-template #noTrade>
           Trade Not Found

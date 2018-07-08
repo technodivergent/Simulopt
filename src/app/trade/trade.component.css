@@ -2,3 +2,9 @@
     color: red;
     font-weight: bold;
 }
+
+.well-header {
+    padding-bottom: 9px;
+    margin: 0 0 3px;
+    border-bottom: 2px solid #ddd;
+}
