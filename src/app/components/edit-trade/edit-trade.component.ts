@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { TradesService } from '../services/trades.service';
+import { TradesService } from '../../services/trades.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { Trade } from '../models/trade';
+import { Trade } from '../../models/trade';
 
 @Component({
-  selector: 'app-trade',
-  templateUrl: './trade.component.html',
-  styleUrls: ['./trade.component.css']
+  selector: 'app-edit-trade',
+  templateUrl: './edit-trade.component.html',
+  styleUrls: ['./edit-trade.component.css']
 })
-export class TradeComponent implements OnInit {
+export class EditTradeComponent implements OnInit {
   subscription: Subscription;
   trade: Trade;
   constructor(

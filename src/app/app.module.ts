@@ -7,12 +7,14 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './services/in-memory-data.service';
 
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { TradeComponent } from './trade/trade.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { TradeComponent } from './components/trade/trade.component';
+import { EditTradeComponent } from './components/edit-trade/edit-trade.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'trade/:id', component: TradeComponent },
+  { path: 'edit/:id', component: EditTradeComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
   // { path: '**', component: PageNotFoundComponent }
 ];
@@ -21,7 +23,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     DashboardComponent,
-    TradeComponent
+    TradeComponent,
+    EditTradeComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -30,6 +33,7 @@ const appRoutes: Routes = [
     ),
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     )

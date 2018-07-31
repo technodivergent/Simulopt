@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TradesService } from '../services/trades.service';
-import { Trade } from '../models/trade';
+import { TradesService } from '../../services/trades.service';
+import { Trade } from '../../models/trade';
 
 @Component({
   selector: 'app-dashboard',
