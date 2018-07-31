@@ -5,8 +5,8 @@ export class InMemoryDataService implements InMemoryDbService {
         const trades = [
             {
                 id: 1,
-                dateEntry: '2018-02-20 1:23 PM',
-                dateExit: '2018-02-23 1:30 PM',
+                dateEntry: '2018-02-20T13:23',
+                dateExit: '2018-02-23T13:23',
                 dateExpires: '2018-09-01',
                 symbol: 'SAM',
                 isPractice: true,
@@ -37,8 +37,8 @@ export class InMemoryDataService implements InMemoryDbService {
             },
             {
                 id: 2,
-                dateEntry: '2018-03-05 1:23 PM',
-                dateExit: '2018-03-10 1:23 PM',
+                dateEntry: '2018-03-05T13:23',
+                dateExit: '2018-03-10T13:23',
                 dateExpires: '2018-09-01',
                 symbol: 'BIDU',
                 isPractice: true,
@@ -68,8 +68,8 @@ export class InMemoryDataService implements InMemoryDbService {
             },
             {
                 id: 3,
-                dateEntry: '2018-05-24 9:30 AM',
-                dateExit: '2018-05-27 9:30 AM',
+                dateEntry: '2018-05-24T09:30',
+                dateExit: '2018-05-27T09:30',
                 dateExpires: '2018-09-01',
                 symbol: 'EXPE',
                 isPractice: false,
@@ -99,7 +99,7 @@ export class InMemoryDataService implements InMemoryDbService {
             },
             {
                 id: 4,
-                dateEntry: '2018-01-01 9:30',
+                dateEntry: '2018-01-01T09:30',
                 dateExit: '',
                 dateExpires: '2018-09-01',
                 symbol: 'MSFT',

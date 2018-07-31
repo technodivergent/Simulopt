@@ -43,7 +43,7 @@ export class TradesService {
   getTradeByID(id: number): Observable<Trade> {
     const url = `${this.tradesURL}/${id}`;
     return this._http.get<Trade>(url).pipe(
-      tap(_ => console.log(`fetched hero id=${id}`)),
+      tap(_ => console.log(`fetched trade id=${id}`)),
       map(data => {
         const trade = new Trade();
         trade.id = data['id'];
