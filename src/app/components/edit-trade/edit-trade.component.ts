@@ -18,11 +18,39 @@ export class EditTradeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.subscription = this._route.params.subscribe( params => {
-      this._tradesService.getTradeByID(params.id).subscribe( trade => {
+    this.subscription = this._route.params.subscribe(params => {
+      this._tradesService.getTradeByID(params.id).subscribe(trade => {
         this.trade = trade;
       });
     });
+  }
+
+  addLine(evidenceType: string) {
+    console.log('added type: ' + evidenceType);
+    switch (evidenceType) {
+      case 'entryDH':
+        this.trade.entryCriteria.dailyHardEvidence.length++;
+        break;
+      case 'entryDS':
+        this.trade.entryCriteria.dailySoftEvidence.length++;
+        break;
+      case 'entryWH':
+        this.trade.entryCriteria.weeklyHardEvidence.length++;
+        break;
+      case 'entryWS':
+        this.trade.entryCriteria.weeklySoftEvidence.length++;
+        break;
+      case 'exit233':
+        this.trade.exitCriteria.evidence233.length++;
+        break;
+      case 'exitDaily':
+        this.trade.exitCriteria.evidenceDaily.length++;
+        break;
+      case 'exitWeekly':
+        this.trade.exitCriteria.evidenceWeekly.length++;
+        break;
+
+    }
   }
 
 }
