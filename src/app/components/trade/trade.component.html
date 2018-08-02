@@ -3,7 +3,13 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">
-          <span *ngIf="trade">{{trade.isPractice ? 'Practice' : 'Real' }}</span> Trade Details</h3>
+          <span *ngIf="trade">{{trade.isPractice ? 'Practice' : 'Real' }}</span> Trade Details
+          <a [routerLink]="['/edit', trade.id]" routerLinkActive="active">
+            <button class="btn btn-info pull-right">
+              <i class="far fa-edit"></i> Edit
+            </button>
+          </a>
+        </h3>
       </div>
       <div class="panel-body">
         <div *ngIf="trade; else noTrade">

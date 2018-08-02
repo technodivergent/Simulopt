@@ -3,7 +3,13 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">
-          <span *ngIf="trade">{{trade.isPractice ? 'Practice' : 'Real' }}</span> Trade Details</h3>
+          <span *ngIf="trade">{{trade.isPractice ? 'Practice' : 'Real' }}</span> Trade Details
+          <a [routerLink]="['/trade', trade.id]" routerLinkActive="active">
+            <button class="btn btn-info pull-right">
+              <i class="far fa-save"></i> Save
+            </button>
+          </a>
+        </h3>
       </div>
       <div class="panel-body">
         <div *ngIf="trade; else noTrade">
@@ -118,13 +124,15 @@
                     </div>
                     <div class="col-xs-4">
                       <div class="form-group">
-                          <label for="stockSli">Stock:</label>
-                          <input type="text" class="form-control" [(ngModel)]="trade.entryCriteria.stockSli" name="stockSli" id="stockSli" required>
-                        </div>
+                        <label for="stockSli">Stock:</label>
+                        <input type="text" class="form-control" [(ngModel)]="trade.entryCriteria.stockSli" name="stockSli" id="stockSli" required>
+                      </div>
                     </div>
                     <div class="col-xs-4">
-                      <div><label>Hard Evidence:</label> {{trade.entryCriteria.dailyHardEvidence.length+trade.entryCriteria.weeklyHardEvidence.length}}</div>
-                      <div><label>Soft Evidence:</label> {{trade.entryCriteria.dailySoftEvidence.length+trade.entryCriteria.weeklySoftEvidence.length}}</div>
+                      <div>
+                        <label>Hard Evidence:</label> {{trade.entryCriteria.dailyHardEvidence.length+trade.entryCriteria.weeklyHardEvidence.length}}</div>
+                      <div>
+                        <label>Soft Evidence:</label> {{trade.entryCriteria.dailySoftEvidence.length+trade.entryCriteria.weeklySoftEvidence.length}}</div>
                     </div>
                   </div>
                 </div>
