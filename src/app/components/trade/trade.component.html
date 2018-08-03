@@ -3,16 +3,18 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">
-          <span *ngIf="trade">{{trade.isPractice ? 'Practice' : 'Real' }}</span> Trade Details
-          <a [routerLink]="['/edit', trade.id]" routerLinkActive="active">
-            <button class="btn btn-info pull-right">
-              <i class="far fa-edit"></i> Edit
-            </button>
-          </a>
+          <span *ngIf="trade; else noTradeTitle">
+            {{trade.isPractice ? 'Practice' : 'Real' }} Trade Details
+            <a [routerLink]="['/edit', trade.id]" routerLinkActive="active">
+              <button class="btn btn-info pull-right">
+                <i class="far fa-edit"></i> Edit
+              </button>
+            </a>
+          </span>
         </h3>
       </div>
       <div class="panel-body">
-        <div *ngIf="trade; else noTrade">
+        <div *ngIf="trade; else noTradeBody">
           <!-- #region Summary Stats -->
           <div class="row">
             <div class="col-xs-2">
@@ -258,9 +260,12 @@
           </div>
           <!-- #endregion Notes -->
         </div>
-        <ng-template #noTrade>
+        <ng-template #noTradeTitle>
           Trade Not Found
         </ng-template>
+        <ng-template #noTradeBody>
+            Sorry, this trade could not be found.
+          </ng-template>
       </div>
     </div>
   </div>

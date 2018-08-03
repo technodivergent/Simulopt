@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { TradesService } from '../../services/trades.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -14,7 +15,8 @@ export class EditTradeComponent implements OnInit {
   trade: Trade;
   constructor(
     private _tradesService: TradesService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -51,6 +53,31 @@ export class EditTradeComponent implements OnInit {
         break;
 
     }
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  /*
+  This function is used by EditTradeComponent to fix a bug where
+  typing a single character in a text input control causes the user
+  to lose focus of that control. This is because of how JS works with
+  arrays of primitives (comparison by value).
+  TrackBy informs Angular not to remove the textbox from the DOM.
+  ***
+  More info can be found:
+  https://stackoverflow.com/questions/42322968/angular2-dynamic-input-field-lose-focus-when-input-changes
+  https://github.com/angular/angular.js/issues/13327
+  */
+  trackByFn(index: any, item: any) {
+    return index;
+  }
+
+  saveTrade(): void {
+    this._tradesService.saveTrade(this.trade).subscribe(
+      () => this.goBack()
+    );
   }
 
 }
