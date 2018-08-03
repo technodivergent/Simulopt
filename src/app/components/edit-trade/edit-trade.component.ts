@@ -55,10 +55,6 @@ export class EditTradeComponent implements OnInit {
     }
   }
 
-  goBack(): void {
-    this.location.back();
-  }
-
   /*
   This function is used by EditTradeComponent to fix a bug where
   typing a single character in a text input control causes the user
@@ -75,9 +71,7 @@ export class EditTradeComponent implements OnInit {
   }
 
   saveTrade(): void {
-    this._tradesService.saveTrade(this.trade).subscribe(
-      () => this.goBack()
-    );
+    this._tradesService.saveTrade(this.trade).subscribe();
   }
 
 }
