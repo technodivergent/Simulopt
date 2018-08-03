@@ -6,7 +6,7 @@
           <span *ngIf="trade; else noTradeTitle">
             {{trade.isPractice ? 'Practice' : 'Real' }} Trade Details
             <a [routerLink]="['/trade', trade.id]" routerLinkActive="active">
-              <button class="btn btn-info pull-right">
+              <button class="btn btn-info pull-right" (click)="saveTrade()">
                 <i class="far fa-save"></i> Save
               </button>
             </a>
