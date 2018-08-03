@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { TradesService } from '../../services/trades.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -14,8 +15,13 @@ export class TradeComponent implements OnInit {
   trade: Trade;
   constructor(
     private _tradesService: TradesService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private location: Location
   ) { }
+
+  goBack(): void {
+    this.location.back();
+  }
 
   ngOnInit() {
     this.subscription = this._route.params.subscribe( params => {
