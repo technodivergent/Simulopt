@@ -71,7 +71,14 @@ export class TradesService {
   saveTrade(trade: Trade) {
     const url = `${this.tradesURL}`;
     return this._http.put<Trade>(url, trade).pipe(
-      tap(_ => console.log(`posted trade`))
+      tap(_ => console.log(`updated trade id=${trade.id}`))
+    );
+  }
+
+  saveNewTrade(trade: Trade) {
+    const url = `${this.tradesURL}`;
+    return this._http.post<Trade>(url, trade).pipe(
+      tap(_ => console.log(`posted trade w/ id=${trade.id}`))
     );
   }
 }
