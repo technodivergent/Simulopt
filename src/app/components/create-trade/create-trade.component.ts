@@ -24,7 +24,7 @@ export class CreateTradeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // Initialize trade
+    // Initialize required properties
     this.trade.entryCriteria = new EntryCriteria();
     this.trade.entryCriteria.dailyHardEvidence = [];
     this.trade.entryCriteria.dailySoftEvidence = [];
@@ -35,6 +35,7 @@ export class CreateTradeComponent implements OnInit {
     this.trade.exitCriteria.evidenceDaily = [];
     this.trade.exitCriteria.evidenceWeekly = [];
 
+    // Used for dropdown select menu
     this.markets = ['INDU', 'COMPQ', 'SPX'];
 
     this._tradesService.getTrades().subscribe( trades => {
