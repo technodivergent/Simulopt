@@ -35,7 +35,6 @@ export class TradesService {
         trade.exitCriteria = i['exitCriteria'];
         trades.push(trade);
       }
-      console.log(trades);
       return trades;
     }));
   }
