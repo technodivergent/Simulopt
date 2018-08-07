@@ -17,6 +17,8 @@ export class CreateTradeComponent implements OnInit {
   trade: Trade = new Trade();
   trades: Trade[] = [];
   markets: string[];
+  datePicker: string;
+  timePicker: string;
 
   constructor(
     private _tradesService: TradesService,
@@ -38,10 +40,26 @@ export class CreateTradeComponent implements OnInit {
     // Used for dropdown select menu
     this.markets = ['INDU', 'COMPQ', 'SPX'];
 
-    this._tradesService.getTrades().subscribe( trades => {
+    this._tradesService.getTrades().subscribe(trades => {
       this.trades = trades;
       this.trade.id = trades.length + 1;
     });
+  }
+
+  dateChange(value): void {
+    this.datePicker = value;
+    this.datetimeChange();
+  }
+
+  timeChange(value): void {
+    this.timePicker = value;
+    this.datetimeChange();
+  }
+
+  datetimeChange() {
+    const dateString = this.datePicker + 'T' + this.timePicker;
+    const newDate = new Date(Date.parse(dateString));
+    this.trade.dateEntry = newDate;
   }
 
   addLine(evidenceType: string) {
@@ -83,9 +101,9 @@ export class CreateTradeComponent implements OnInit {
   https://stackoverflow.com/questions/42322968/angular2-dynamic-input-field-lose-focus-when-input-changes
   https://github.com/angular/angular.js/issues/13327
   */
- trackByFn(index: any, item: any) {
-  return index;
-}
+  trackByFn(index: any, item: any) {
+    return index;
+  }
 
   saveTrade(): void {
     console.log(this.trade);
