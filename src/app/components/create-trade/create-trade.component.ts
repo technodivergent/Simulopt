@@ -4,27 +4,62 @@ import { TradesService } from '../../services/trades.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Trade } from '../../models/trade';
+import { EntryCriteria } from '../../models/entryCriteria';
+import { ExitCriteria } from '../../models/exitCriteria';
 
 @Component({
-  selector: 'app-edit-trade',
-  templateUrl: './edit-trade.component.html',
-  styleUrls: ['./edit-trade.component.css']
+  selector: 'app-create-trade',
+  templateUrl: './create-trade.component.html',
+  styleUrls: ['./create-trade.component.css']
 })
-export class EditTradeComponent implements OnInit {
+export class CreateTradeComponent implements OnInit {
   subscription: Subscription;
-  trade: Trade;
+  trade: Trade = new Trade();
+  trades: Trade[] = [];
+  markets: string[];
+  datePicker: string;
+  timePicker: string;
+
   constructor(
     private _tradesService: TradesService,
-    private _route: ActivatedRoute,
-    private location: Location
+    private _route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.subscription = this._route.params.subscribe(params => {
-      this._tradesService.getTradeByID(params.id).subscribe(trade => {
-        this.trade = trade;
-      });
+    // Initialize required properties
+    this.trade.entryCriteria = new EntryCriteria();
+    this.trade.entryCriteria.dailyHardEvidence = [];
+    this.trade.entryCriteria.dailySoftEvidence = [];
+    this.trade.entryCriteria.weeklyHardEvidence = [];
+    this.trade.entryCriteria.weeklySoftEvidence = [];
+    this.trade.exitCriteria = new ExitCriteria();
+    this.trade.exitCriteria.evidence233 = [];
+    this.trade.exitCriteria.evidenceDaily = [];
+    this.trade.exitCriteria.evidenceWeekly = [];
+
+    // Used for dropdown select menu
+    this.markets = ['INDU', 'COMPQ', 'SPX'];
+
+    this._tradesService.getTrades().subscribe(trades => {
+      this.trades = trades;
+      this.trade.id = trades.length + 1;
     });
+  }
+
+  dateChange(value): void {
+    this.datePicker = value;
+    this.datetimeChange();
+  }
+
+  timeChange(value): void {
+    this.timePicker = value;
+    this.datetimeChange();
+  }
+
+  datetimeChange() {
+    const dateString = this.datePicker + 'T' + this.timePicker;
+    const newDate = new Date(Date.parse(dateString));
+    this.trade.dateEntry = newDate;
   }
 
   addLine(evidenceType: string) {
@@ -71,7 +106,8 @@ export class EditTradeComponent implements OnInit {
   }
 
   saveTrade(): void {
-    this._tradesService.saveTrade(this.trade).subscribe();
+    console.log(this.trade);
+    this.subscription = this._tradesService.saveNewTrade(this.trade).subscribe();
   }
 
 }

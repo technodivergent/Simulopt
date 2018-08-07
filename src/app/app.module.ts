@@ -10,10 +10,12 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TradeComponent } from './components/trade/trade.component';
 import { EditTradeComponent } from './components/edit-trade/edit-trade.component';
+import { CreateTradeComponent } from './components/create-trade/create-trade.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'trade/:id', component: TradeComponent },
+  { path: 'create', component: CreateTradeComponent },
   { path: 'edit/:id', component: EditTradeComponent },
   { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
   // { path: '**', component: PageNotFoundComponent }
@@ -24,7 +26,8 @@ const appRoutes: Routes = [
     AppComponent,
     DashboardComponent,
     TradeComponent,
-    EditTradeComponent
+    EditTradeComponent,
+    CreateTradeComponent
   ],
   imports: [
     RouterModule.forRoot(

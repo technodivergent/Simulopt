@@ -1,0 +1,249 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          Create New Trade
+          <a [routerLink]="['/trade', trade.id]" routerLinkActive="active">
+            <button class="btn btn-info pull-right" (click)="saveTrade()">
+              <i class="far fa-save"></i> Create
+            </button>
+          </a>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <div *ngIf="trade; else noTrade">
+          <!-- #region Summary Stats -->
+          <div class="row">
+            <div class="col-xs-2">
+              <div class="form-group">
+                <label for="symbol">Symbol</label>
+                <input type="text" class="form-control" [(ngModel)]="trade.symbol" name="symbol" id="symbol" required>
+              </div>
+            </div>
+            <div class="col-xs-1">
+              <div class="form-group">
+                <label for="strike">Strike</label>
+                <input type="text" class="form-control" [(ngModel)]="trade.strike" name="strike" id="strike" required>
+              </div>
+            </div>
+            <div class="col-xs-3">
+              <div class="form-group">
+                <label for="dateExpires">Option Expires:</label>
+                <input type="date" class="form-control" [(ngModel)]="trade.dateExpires" name="dateExpires" id="dateExpires" required>
+              </div>
+            </div>
+            <div class="col-xs-3">
+              <div class="form-group">
+                <label for="dateEntry">Date Entered:</label>
+                <input type="date" class="form-control" (ngModel)="datePicker" (ngModelChange)="dateChange($event)" name="datePicker" id="datePicker" required>
+                <input type="time" class="form-control" (ngModel)="timePicker" (ngModelChange)="timeChange($event)" name="timePicker" id="timePicker" required>
+              </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="form-group">
+                  <label for="marketSli">Market:</label>
+                  <select class="form-control" [(ngModel)]="trade.entryCriteria.marketSli" name="marketSli" id="marketSli">
+                    <optgroup label="Select a market/index...">
+                      <option *ngFor="let market of markets">{{market}}</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-2">
+              <div class="form-group">
+                <label for="askAtOpen">Ask Price</label>
+                <input type="text" class="form-control" [(ngModel)]="trade.askAtOpen" name="askAtOpen" id="askAtOpen" required>
+              </div>
+            </div>
+            <div class="col-xs-1">
+              <div class="form-group">
+                <label for="bought">Paid</label>
+                {{trade.askAtOpen*100 + 5.65 | currency}}
+              </div>
+            </div>
+            <div class="col-xs-2">
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="isPractice" id="practice" [(ngModel)]="trade.isPractice" [value]=true>
+                  <label class="form-check-label" for="practice">
+                    Practice
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="isPractice" id="real" [(ngModel)]="trade.isPractice" [value]=false>
+                  <label class="form-check-label" for="real">
+                    Real
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-1">
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="isCall" id="call" [(ngModel)]="trade.isCall" [value]=true>
+                  <label class="form-check-label" for="call">
+                    Call
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="isCall" id="put" [(ngModel)]="trade.isCall" [value]=false>
+                  <label class="form-check-label" for="put">
+                    Put
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <div class="form-check">
+                <label class="form-check-label" for="is7HR">
+                  Use 7 Hour Rule
+                </label>
+                <br/>
+                <input class="form-check-input" type="checkbox" value="false" id="is7HR" [(ngModel)]="trade.is7HR">
+              </div>
+            </div>
+          </div>
+          <!-- #endregion Summary Stats -->
+          <!-- #region Entry Criteria -->
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="page-header">
+                <h2>Entry Criteria</h2>
+              </div>
+              <div class="well">
+                <!-- #region Daily -->
+                <div class="row">
+                  <div class="well-header">
+                    <h2>Daily Evidence</h2>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <table class="table table-condensed">
+                        <thead>
+                          <tr>
+                            <th>Hard ({{trade.entryCriteria.dailyHardEvidence.length}})
+                              <a (click)="addLine('entryDH')">
+                                <i class="fas fa-plus"></i>
+                              </a>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let evidence of trade.entryCriteria.dailyHardEvidence; let i = index; trackBy:trackByFn">
+                            <td>
+                              <div class="form-group">
+                                <input type="text" class="form-control" [(ngModel)]="trade.entryCriteria.dailyHardEvidence[i]" name="dhEvidence-{{i}}" id="dhEvidence-{{i}}">
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-xs-6">
+                      <table class="table table-condensed">
+                        <thead>
+                          <tr>
+                            <th>Soft ({{trade.entryCriteria.dailySoftEvidence.length}})
+                              <a (click)="addLine('entryDS')">
+                                <i class="fas fa-plus"></i>
+                              </a>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let evidence of trade.entryCriteria.dailySoftEvidence; let i = index; trackBy:trackByFn">
+                            <td>
+                              <div class="form-group">
+                                <input type="text" class="form-control" [(ngModel)]="trade.entryCriteria.dailySoftEvidence[i]" name="dsEvidence-{{i}}" id="dsEvidence-{{i}}">
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!-- #endregion Daily -->
+                <!-- #region Weekly -->
+                <div class="row">
+                  <div class="well-header">
+                    <h2>Weekly Evidence</h2>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <table class="table table-condensed">
+                        <thead>
+                          <tr>
+                            <th>Hard ({{trade.entryCriteria.weeklyHardEvidence.length}})
+                              <a (click)="addLine('entryWH')">
+                                <i class="fas fa-plus"></i>
+                              </a>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let evidence of trade.entryCriteria.weeklyHardEvidence; let i = index; trackBy:trackByFn">
+                            <td>
+                              <div class="form-group">
+                                <input type="text" class="form-control" [(ngModel)]="trade.entryCriteria.weeklyHardEvidence[i]" name="whEvidence-{{i}}" id="whEvidence-{{i}}">
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-xs-6">
+                      <table class="table table-condensed">
+                        <thead>
+                          <tr>
+                            <th>Soft ({{trade.entryCriteria.weeklySoftEvidence.length}})
+                              <a (click)="addLine('entryWS')">
+                                <i class="fas fa-plus"></i>
+                              </a>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let evidence of trade.entryCriteria.weeklySoftEvidence; let i = index; trackBy:trackByFn">
+                            <td>
+                              <div class="form-group">
+                                <input type="text" class="form-control" [(ngModel)]="trade.entryCriteria.weeklySoftEvidence[i]" name="wsEvidence-{{i}}" id="wsEvidence-{{i}}">
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!-- #endregion Weekly -->
+              </div>
+            </div>
+          </div>
+          <!-- #endregion Entry Criteria -->
+          <!-- #region Notes -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="page-header">
+                <h2>Notes</h2>
+              </div>
+              <div class="well">
+                <div class="form-group">
+                  <label for="notes">Notes</label>
+                  <textarea class="form-control" id="notes" rows="3" [(ngModel)]="trade.notes"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- #endregion Notes -->
+        </div>
+        <ng-template #noTrade>
+          Something went wrong in the code!
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
