@@ -39,14 +39,7 @@
             <div class="col-xs-3">
               <div class="form-group">
                 <label for="dateExit">Date Exited:</label>
-                <span *ngIf="trade.dateExit; else openTrade">
                   <input type="text" class="form-control" [(ngModel)]="trade.dateExit" name="dateExit" id="dateExit" required>
-                </span>
-                <ng-template #openTrade>
-                  <span class="active-trade">
-                    <input type="text" class="form-control" value="ACTIVE TRADE" name="dateExit" id="dateExit" required>
-                  </span>
-                </ng-template>
               </div>
             </div>
             <div class="col-xs-4">
