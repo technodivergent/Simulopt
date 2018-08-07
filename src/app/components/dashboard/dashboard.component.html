@@ -4,15 +4,15 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Entry Date</th>
+            <th>Entry</th>
             <th>Symbol</th>
-            <th>Practice/Real</th>
+            <th>P/R</th>
             <th>Call/Put</th>
             <th>Strike</th>
             <th>Expires</th>
-            <th>Ask at Open</th>
-            <th>Bid at Close</th>
-            <th>Exit Date</th>
+            <th>Bought</th>
+            <th>Sold</th>
+            <th>Exit</th>
             <th>Profit</th>
             <th>7HR?</th>
             <th>Details</th>
@@ -20,20 +20,35 @@
         </thead>
         <tbody>
           <tr *ngFor="let trade of trades">
-            <td>{{trade.dateEntry}}</td>
+            <td>{{trade.dateEntry | date:'MM/dd/yy h:mm'}}</td>
             <td>{{trade.symbol}}</td>
             <td>{{trade.isPractice ? 'Practice' : 'Real'}}</td>
             <td>{{trade.isCall ? 'Call' : 'Put'}}</td>
             <td>{{trade.strike}}</td>
-            <td>{{trade.dateExpires}}</td>
+            <td>{{trade.dateExpires | date:'dd-MMM'}}</td>
             <td>{{trade.askAtOpen}}</td>
             <td>{{trade.bidAtClose}}</td>
-            <td>{{trade.dateExit}}</td>
             <td>
-              <span [ngStyle]="{'color': trade.profit <= 0 ? '#ff0000':'#000' }"><strong>{{trade.profit | currency }}</strong></span>
+              <span *ngIf="trade.dateExit; else openTrade">
+                {{trade.dateExit | date:'MM/dd/yy h:mm'}}
+              </span>
+              <ng-template #openTrade>
+                <span class="active-trade">
+                  ACTIVE TRADE
+                </span>
+              </ng-template>
+            </td>
+            <td>
+              <span [ngStyle]="{'color': trade.profit <= 0 ? '#ff0000':'#000' }">
+                <strong>{{trade.profit | currency }}</strong>
+              </span>
             </td>
             <td>{{trade.is7HR ? 'Yes' : 'No'}}</td>
-            <td><a [routerLink]="['/trade', trade.id]" routerLinkActive="active"><i class="fa fa-external-link-alt" ></i></a></td>
+            <td>
+              <a [routerLink]="['/trade', trade.id]" routerLinkActive="active">
+                <i class="fa fa-external-link-alt"></i>
+              </a>
+            </td>
           </tr>
         </tbody>
       </table>
