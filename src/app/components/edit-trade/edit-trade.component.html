@@ -39,14 +39,7 @@
             <div class="col-xs-3">
               <div class="form-group">
                 <label for="dateExit">Date Exited:</label>
-                <span *ngIf="trade.dateExit; else openTrade">
                   <input type="text" class="form-control" [(ngModel)]="trade.dateExit" name="dateExit" id="dateExit" required>
-                </span>
-                <ng-template #openTrade>
-                  <span class="active-trade">
-                    <input type="text" class="form-control" value="ACTIVE TRADE" name="dateExit" id="dateExit" required>
-                  </span>
-                </ng-template>
               </div>
             </div>
             <div class="col-xs-4">
@@ -178,7 +171,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let evidence of trade.entryCriteria.dailySoftEvidence; let i = index">
+                          <tr *ngFor="let evidence of trade.entryCriteria.dailySoftEvidence; let i = index; trackBy:trackByFn">
                             <td>
                               <div class="form-group">
                                 <input type="text" class="form-control" [(ngModel)]="trade.entryCriteria.dailySoftEvidence[i]" name="dsEvidence-{{i}}" id="dsEvidence-{{i}}">
@@ -209,7 +202,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let evidence of trade.entryCriteria.weeklyHardEvidence; let i = index">
+                          <tr *ngFor="let evidence of trade.entryCriteria.weeklyHardEvidence; let i = index; trackBy:trackByFn">
                             <td>
                               <div class="form-group">
                                 <input type="text" class="form-control" [(ngModel)]="trade.entryCriteria.weeklyHardEvidence[i]" name="whEvidence-{{i}}" id="whEvidence-{{i}}">
@@ -231,7 +224,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let evidence of trade.entryCriteria.weeklySoftEvidence; let i = index">
+                          <tr *ngFor="let evidence of trade.entryCriteria.weeklySoftEvidence; let i = index; trackBy:trackByFn">
                             <td>
                               <div class="form-group">
                                 <input type="text" class="form-control" [(ngModel)]="trade.entryCriteria.weeklySoftEvidence[i]" name="wsEvidence-{{i}}" id="wsEvidence-{{i}}">
@@ -267,7 +260,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let evidence of trade.exitCriteria.evidence233; let i = index">
+                          <tr *ngFor="let evidence of trade.exitCriteria.evidence233; let i = index; trackBy:trackByFn">
                             <td>
                               <div class="form-group">
                                 <input type="text" class="form-control" [(ngModel)]="trade.exitCriteria.evidence233[i]" name="exit233-{{i}}" id="exit233-{{i}}">
@@ -289,7 +282,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let evidence of trade.exitCriteria.evidenceDaily; let i = index">
+                          <tr *ngFor="let evidence of trade.exitCriteria.evidenceDaily; let i = index; trackBy:trackByFn">
                             <td>
                               <div class="form-group">
                                 <input type="text" class="form-control" [(ngModel)]="trade.exitCriteria.evidenceDaily[i]" name="exitDaily-{{i}}" id="exitDaily-{{i}}">
@@ -311,7 +304,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let evidence of trade.exitCriteria.evidenceWeekly; let i = index">
+                          <tr *ngFor="let evidence of trade.exitCriteria.evidenceWeekly; let i = index; trackBy:trackByFn">
                             <td>
                               <div class="form-group">
                                 <input type="text" class="form-control" [(ngModel)]="trade.exitCriteria.evidenceWeekly[i]" name="exitWeekly-{{i}}" id="exitWeekly-{{i}}">
